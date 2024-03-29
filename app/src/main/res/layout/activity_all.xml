@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_back_theme"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/top_background" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/search"
+        android:backgroundTint="@color/white"
+        android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search on MobileStore"
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/baseline_search_24" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_back_theme"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:scrollbars="vertical"/>
+
+</RelativeLayout>

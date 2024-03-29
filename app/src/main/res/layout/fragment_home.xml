@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_back_theme"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/top_background" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/search"
+        android:backgroundTint="@color/white"
+        android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search on MobileStore"
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/baseline_search_24" />
+
+    <ViewFlipper
+        android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_below="@id/top_back_theme"
+        android:layout_marginTop="20dp"
+        android:autoStart="true"
+        android:flipInterval="2000"
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right">
+
+        <ImageView
+            android:id="@+id/black_friday_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/black_friday_image" />
+
+        <ImageView
+            android:id="@+id/valentine_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/valentine_sale_image" />
+
+        <ImageView
+            android:id="@+id/christmas_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/christmas_sale_image" />
+
+    </ViewFlipper>
+
+    <TextView
+        android:id="@+id/category_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/carousel"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:text="Category"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_text"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/laptop_btnImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/circle_shaped"
+            android:src="@drawable/baseline_computer_24"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/tablet_btnImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/circle_shaped"
+            android:src="@drawable/baseline_tablet_mac_24"
+            app:tint="@color/white"/>
+
+        <ImageButton
+            android:id="@+id/phone_btnImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/circle_shaped"
+            android:src="@drawable/baseline_phone_iphone_24"
+            app:tint="@color/white"/>
+
+        <ImageButton
+            android:id="@+id/all_btnImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/circle_shaped"
+            android:src="@drawable/baseline_select_all_24"
+            app:tint="@color/white"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:text="Products"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/product_text"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:scrollbars="vertical"/>
+
+
+
+</RelativeLayout>

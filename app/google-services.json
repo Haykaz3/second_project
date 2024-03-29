@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "555140716370",
+    "firebase_url": "https://mobileexpress-58a17-default-rtdb.firebaseio.com",
+    "project_id": "mobileexpress-58a17",
+    "storage_bucket": "mobileexpress-58a17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555140716370:android:2b3318519cca8dc9e14c8b",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4rdeoYOa5hfnC3ZaZcOU4_SP_97JIh64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
