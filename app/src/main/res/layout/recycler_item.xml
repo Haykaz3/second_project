@@ -61,7 +61,7 @@
                     android:layout_width="48dp"
                     android:layout_height="42dp"
                     android:background="@drawable/cart_back_ground"
-                    android:src="@drawable/cart"
+                    android:src="@drawable/vector__1_"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

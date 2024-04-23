@@ -71,6 +71,9 @@ public class PhonesActivity extends AppCompatActivity {
                         product.name = documentSnapshot.getString("name");
                         product.price = documentSnapshot.getString("price");
                         product.image = documentSnapshot.getString("image");
+                        product.categoryId = "phones";
+                        product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         phones.add(product);
                     }
                     dataList.addAll(phones);

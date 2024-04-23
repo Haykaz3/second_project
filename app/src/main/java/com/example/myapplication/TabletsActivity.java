@@ -69,6 +69,9 @@ public class TabletsActivity extends AppCompatActivity {
                         product.name = documentSnapshot.getString("name");
                         product.price = documentSnapshot.getString("price");
                         product.image = documentSnapshot.getString("image");
+                        product.categoryId = "tablets";
+                        product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         tablets.add(product);
                     }
                     dataList.addAll(tablets);

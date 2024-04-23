@@ -8,8 +8,8 @@
 
     <item
         android:id="@+id/basket"
-        android:title="Basket"
-        android:icon="@drawable/baseline_shopping_cart_24"/>
+        android:title="Compare"
+        android:icon="@drawable/vector__1_"/>
 
     <item
         android:id="@+id/profile"

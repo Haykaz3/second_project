@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
-    private Context context;
+    public static Context context;
     private List<Product> dataList;
 
     public void setSearchList(List<Product> dataSearchList){
@@ -83,6 +84,17 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         if (dataClass.image != null) {
             Picasso.get().load(dataClass.image).into(binding.recImage);
         }
+        binding.recCard.setOnClickListener(v -> {
+            Intent intent = new Intent(MyAdapter.context, DetailActivity.class);
+            intent.putExtra("productUrl", dataClass.productUrl);
+            intent.putExtra("productPrice", dataClass.price);
+            intent.putExtra("image", dataClass.image);
+            intent.putExtra("productName", dataClass.name);
+            intent.putExtra("productId", dataClass.productId);
+            intent.putExtra("categoryId", dataClass.categoryId);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            MyAdapter.context.startActivity(intent);
+        });
         binding.appCompatButton.setOnClickListener(v -> {
             addToCart(dataClass.productId, dataClass.categoryId, dataClass.price);
         });

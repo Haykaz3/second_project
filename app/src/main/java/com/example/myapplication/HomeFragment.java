@@ -127,6 +127,7 @@ public class HomeFragment extends Fragment  {
                         product.image = documentSnapshot.getString("image");
                         product.categoryId = "phones";
                         product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         phones.add(product);
                     }
                     dataList.addAll(phones);
@@ -150,6 +151,7 @@ public class HomeFragment extends Fragment  {
                         product.image = documentSnapshot.getString("image");
                         product.categoryId = "tablets";
                         product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         phones.add(product);
                     }
                     dataList.addAll(tablets);
@@ -173,6 +175,7 @@ public class HomeFragment extends Fragment  {
                         product.image = documentSnapshot.getString("image");
                         product.categoryId = "computers";
                         product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         phones.add(product);
                     }
                     dataList.addAll(computers);

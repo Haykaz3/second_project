@@ -6,4 +6,6 @@ public class Product {
     public String image;
     public String categoryId;
     public String productId;
+    public String productUrl;
+
 }

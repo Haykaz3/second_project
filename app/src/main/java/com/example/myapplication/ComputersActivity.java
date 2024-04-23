@@ -70,6 +70,9 @@ public class ComputersActivity extends AppCompatActivity {
                         product.name = documentSnapshot.getString("name");
                         product.price = documentSnapshot.getString("price");
                         product.image = documentSnapshot.getString("image");
+                        product.categoryId = "computers";
+                        product.productId = documentSnapshot.getId();
+                        product.productUrl = documentSnapshot.getString("productUrl");
                         computers.add(product);
                     }
                     dataList.addAll(computers);
