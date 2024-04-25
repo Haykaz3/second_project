@@ -99,6 +99,7 @@ public class DetailActivity extends AppCompatActivity {
                                                                 newData.put("price", price);
                                                                 newData.put("itemId", productId);
                                                                 newData.put("categoryId", categoryId);
+                                                                newData.put("productUrl", productUrl);
                                                                 docRef.set(newData);
                                                                 count++;
                                                                 Toast.makeText(getApplicationContext(),"Added Second",Toast.LENGTH_SHORT).show();
@@ -117,6 +118,7 @@ public class DetailActivity extends AppCompatActivity {
                                     cartItem.put("price", price);
                                     cartItem.put("itemId", productId);
                                     cartItem.put("categoryId", categoryId);
+                                    cartItem.put("productUrl", productUrl);
 
                                     FirebaseFirestore.getInstance().collection("carts")
                                             .add(cart)
@@ -179,4 +181,5 @@ public class DetailActivity extends AppCompatActivity {
             binding.detailDescription.setText(String.join(" ",strings));
         }
     }
+
 }

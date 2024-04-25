@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 public class CartItem {
+    String productURL;
     String itemId;
     String cartItemId;
     String cartId;

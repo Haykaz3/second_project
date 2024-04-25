@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +16,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
@@ -64,7 +71,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         void setCartData(CartItem cartData) {
-            binding.textViewcount.setText(Integer.toString(cartData.itemCount));
+            //binding.detailDescriptionCompare.setText(cartData.productURL);
+            new CartViewHolder.FetchTask11(cartData.productURL).execute();
             FirebaseFirestore.getInstance().collection(cartData.categoryId).document(cartData.itemId)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -82,41 +90,54 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             int price = Integer.parseInt(numericString);
                             binding.textView2.setText(Integer.toString(price));
 
-                            binding.imageViewplus.setOnClickListener(view -> {
-
-                                int count1 = cartData.itemCount++;
-                                FirebaseFirestore.getInstance().collection("carts")
-                                        .document(cartData.cartId).collection("cartItems").document(cartData.cartItemId).update("itemCount", count1);
-                                binding.textView2.setText(Integer.toString(price * count1));
-                                binding.textViewcount.setText(Integer.toString(count1));
-
-
-                            });
-                            binding.imageViewplus.setOnClickListener(view -> {
-                                count1++;
-
-                                FirebaseFirestore.getInstance().collection("carts")
-                                        .document(cartData.cartId).collection("cartItems").document(cartData.cartItemId).update("itemCount", count1);
-                                binding.textView2.setText(Integer.toString(price * count1));
-                                binding.textViewcount.setText(Integer.toString(count1));
-
-
-                            });
-                            binding.imageViewminus.setOnClickListener(view -> {
-
-                                if (cartData.itemCount > 0) {
-                                    count1--;
-                                    FirebaseFirestore.getInstance().collection("carts")
-                                            .document(cartData.cartId).collection("cartItems").document(cartData.cartItemId).update("itemCount", count1);
-                                    binding.textView2.setText(Integer.toString(price * count1));
-                                    binding.textViewcount.setText(Integer.toString(count1));
-                                }
-                            });
                             binding.imageViewdelete.setOnClickListener(v -> {
                                 deleteItem(cartData.cartId, cartData.cartItemId);
                             });
                         }
                     });
+        }
+        public class FetchTask11 extends AsyncTask<Void, Void, Void> {
+            String url;
+            List<String> strings = new ArrayList<>();
+
+            public FetchTask11(String url) {
+                this.url = url;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                try {
+                    Document doc = Jsoup.connect(url).get();
+
+                    for (int k = 1; k <= 7; k++) {
+                        int i = 2, j = i + 1;
+                        while (doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + i + ")") != null && doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(1) > div:nth-child(" + j + ")") != null) {
+                            Element productDescName = doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + i + ")");
+                            Element productDescValue = doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + j + ")");
+                            strings.add(productDescName.text() + " " + productDescValue.text() + "\n");
+                            i+=2;
+                            j+=2;
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void unused) {
+                super.onPostExecute(unused);
+                binding.detailDescriptionCompare.setText(String.join(" ",strings));
+            }
         }
         void deleteItem(String cartId, String id) {
             FirebaseFirestore.getInstance().collection("carts").document(cartId).collection("cartItems").document(id).delete();

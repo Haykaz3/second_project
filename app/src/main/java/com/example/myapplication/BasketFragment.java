@@ -74,6 +74,7 @@ public class BasketFragment extends Fragment {
                                                 cartItem.itemId = documentSnapshot1.getString("itemId");
                                                 cartItem.categoryId = documentSnapshot1.getString("categoryId");
                                                 cartItem.price = documentSnapshot1.getString("price");
+                                                cartItem.productURL = documentSnapshot1.getString("productUrl");
                                                 cartItem.cartId = cartId;
                                                 cartItem.cartItemId = documentSnapshot1.getId();
                                                 cartItemList.add(cartItem);

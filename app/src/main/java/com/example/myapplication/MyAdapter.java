@@ -96,10 +96,10 @@ class MyViewHolder extends RecyclerView.ViewHolder{
             MyAdapter.context.startActivity(intent);
         });
         binding.appCompatButton.setOnClickListener(v -> {
-            addToCart(dataClass.productId, dataClass.categoryId, dataClass.price);
+            addToCart(dataClass.productId, dataClass.categoryId, dataClass.price, dataClass.productUrl);
         });
     }
-    private void addToCart(String productId, String categoryId, String price) {
+    private void addToCart(String productId, String categoryId, String price, String productUrl) {
         HashMap<String, Object> cart = new HashMap<>();
         HashMap<String, Object> cartItem = new HashMap<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -129,6 +129,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                                                                 newData.put("price", price);
                                                                 newData.put("itemId", productId);
                                                                 newData.put("categoryId", categoryId);
+                                                                newData.put("productUrl", productUrl);
                                                                 docRef.set(newData);
                                                                 count++;
                                                                 Toast.makeText(itemView.getContext(),"Added Second",Toast.LENGTH_SHORT).show();
@@ -147,6 +148,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                                     cartItem.put("price", price);
                                     cartItem.put("itemId", productId);
                                     cartItem.put("categoryId", categoryId);
+                                    cartItem.put("productUrl", productUrl);
 
                                     FirebaseFirestore.getInstance().collection("carts")
                                             .add(cart)
