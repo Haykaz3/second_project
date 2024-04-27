@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
 public class Product {
     public String name;
@@ -7,5 +7,6 @@ public class Product {
     public String categoryId;
     public String productId;
     public String productUrl;
+    public int viewCount;
 
 }

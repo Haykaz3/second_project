@@ -1,15 +1,16 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.databinding.RecyclerItemBinding;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.example.MobileStore87.databinding.ActivityDetailBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -21,85 +22,54 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class DetailActivity extends AppCompatActivity {
 
-    public static Context context;
-    private List<Product> dataList;
-
-    public void setSearchList(List<Product> dataSearchList){
-        this.dataList = dataSearchList;
-        notifyDataSetChanged();
-    }
-
-    public MyAdapter(Context context, List<Product>dataList){
-        this.context = context;
-        this.dataList = dataList;
-    }
-
-    @NonNull
-    @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerItemBinding recyclerItemBinding = RecyclerItemBinding.inflate(
-                LayoutInflater.from(parent.getContext()),
-                parent,
-                false
-        );
-        return new MyViewHolder(recyclerItemBinding);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        holder.setData(dataList.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
-}
-
-
-class MyViewHolder extends RecyclerView.ViewHolder{
-
-    RecyclerItemBinding binding;
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private com.example.MobileStore87.databinding.ActivityDetailBinding binding;
+    private String productUrl;
+    private String productPrice;
+    private String productName;
+    private String productId;
+    private String categoryId;
+    private String image;
     int count = 1;
-
-    public MyViewHolder(RecyclerItemBinding itemView){
-        super(itemView.getRoot());
-        binding = itemView;
-
-    }
-    void setData(Product dataClass) {
-        if (dataClass.name.length() > 50) {
-            binding.recTitle.setText(dataClass.name.substring(0, 50));
-        } else {
-            binding.recTitle.setText(dataClass.name);
-        }
-        binding.recDesc.setText(dataClass.price);
-        if (dataClass.image != null) {
-            Picasso.get().load(dataClass.image).into(binding.recImage);
-        }
-        binding.recCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MyAdapter.context, DetailActivity.class);
-            intent.putExtra("productUrl", dataClass.productUrl);
-            intent.putExtra("productPrice", dataClass.price);
-            intent.putExtra("image", dataClass.image);
-            intent.putExtra("productName", dataClass.name);
-            intent.putExtra("productId", dataClass.productId);
-            intent.putExtra("categoryId", dataClass.categoryId);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            MyAdapter.context.startActivity(intent);
+    List<String> strings = new ArrayList<>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        productUrl = getIntent().getStringExtra("productUrl");
+        productPrice = getIntent().getStringExtra("productPrice");
+        productName = getIntent().getStringExtra("productName");
+        productId = getIntent().getStringExtra("productId");
+        categoryId = getIntent().getStringExtra("categoryId");
+        image = getIntent().getStringExtra("image");
+        binding.detailPrice.setText(productPrice);
+        binding.productNameDetail.setText(productName);
+        binding.productNameDetail4.setText(productName);
+        Picasso.get().load(image).into(binding.detailImage);
+        binding.mobileCentreRef.setOnClickListener(v -> {
+            Uri uri = Uri.parse(productUrl);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
         binding.appCompatButton.setOnClickListener(v -> {
-            addToCart(dataClass.productId, dataClass.categoryId, dataClass.price, dataClass.productUrl);
+            addToCart(productId,categoryId,productPrice);
         });
+        new FetchTask1().execute();
     }
-    private void addToCart(String productId, String categoryId, String price, String productUrl) {
+    private void addToCart(String productId, String categoryId, String price) {
         HashMap<String, Object> cart = new HashMap<>();
         HashMap<String, Object> cartItem = new HashMap<>();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,7 +102,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                                                                 newData.put("productUrl", productUrl);
                                                                 docRef.set(newData);
                                                                 count++;
-                                                                Toast.makeText(itemView.getContext(),"Added Second",Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(),"Added Second",Toast.LENGTH_SHORT).show();
                                                             }
                                                         }
                                                     }
@@ -158,7 +128,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                                                     documentReference.collection("cartItems").add(cartItem).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                         @Override
                                                         public void onSuccess(DocumentReference documentReference) {
-                                                            Toast.makeText(itemView.getContext(), "Added",Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getApplicationContext(), "Added",Toast.LENGTH_SHORT).show();
                                                         }
                                                     });
                                                 }
@@ -169,7 +139,47 @@ class MyViewHolder extends RecyclerView.ViewHolder{
                         }
                     });
         } else {
-            Toast.makeText(itemView.getContext(),"User is not logged in",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"User is not logged in",Toast.LENGTH_SHORT).show();
         }
     }
+
+    private class FetchTask1 extends AsyncTask<Void, Void, Void> {
+        String url = productUrl;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+                Document doc = Jsoup.connect(url).get();
+
+                for (int k = 1; k <= 7; k++) {
+                    int i = 2, j = i + 1;
+                    while (doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + i + ")") != null && doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(1) > div:nth-child(" + j + ")") != null) {
+                        Element productDescName = doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + i + ")");
+                        Element productDescValue = doc.selectFirst("body > div:nth-child(10) > div > div:nth-child(" + k + ") > div:nth-child(" + j + ")");
+                        strings.add(productDescName.text() + " " + productDescValue.text() + "\n");
+                        i+=2;
+                        j+=2;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            binding.detailDescription.setText(String.join(" ",strings));
+        }
+    }
+
 }

@@ -1,14 +1,9 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -19,7 +14,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     HomeFragment homeFragment = new HomeFragment();
     BasketFragment basketFragment = new BasketFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
+    StatisticsFragment statisticsFragment = new StatisticsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +35,8 @@ public class MainActivity2 extends AppCompatActivity {
                 } else if (itemId == R.id.basket) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, basketFragment).commit();
                     return true;
-                } else if (itemId == R.id.profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
+                } else if (itemId == R.id.statistics) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, statisticsFragment).commit();
                     return true;
                 }
                 return false;

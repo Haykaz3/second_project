@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
 public class CartItem {
     String productURL;

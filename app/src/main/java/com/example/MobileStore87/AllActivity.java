@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;

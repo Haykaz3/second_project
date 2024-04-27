@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -17,32 +17,32 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComputersActivity extends AppCompatActivity {
-
+public class PhonesActivity extends AppCompatActivity {
     List<Product> dataList;
-    List<Product> computers;
+    List<Product> phones;
 
     MyAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_computers);
+        setContentView(R.layout.activity_phones);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewComputers);
-        SearchView searchView = findViewById(R.id.searchComputers);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewPhones);
+        SearchView searchView = findViewById(R.id.searchPhones);
 
         searchView.clearFocus();
 
         dataList = new ArrayList<>();
-        computers = new ArrayList<>();
+        phones = new ArrayList<>();
         recyclerView.setVisibility(View.GONE);
-        adapter = new MyAdapter(ComputersActivity.this, dataList);
+        adapter = new MyAdapter(PhonesActivity.this, dataList);
         recyclerView.setAdapter(adapter);
 
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(ComputersActivity.this);
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(PhonesActivity.this);
         layoutManager.setFlexWrap(FlexWrap.WRAP);
-        getComputers1();
+        getPhones1();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         recyclerView.setVisibility(View.VISIBLE);
@@ -55,36 +55,36 @@ public class ComputersActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchList3(newText);
+                searchList1(newText);
                 return true;
             }
         });
     }
-    private void getComputers1() {
-        FirebaseFirestore.getInstance().collection("computers")
+    private void getPhones1() {
+        FirebaseFirestore.getInstance().collection("phones")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    computers.clear();
+                    phones.clear();
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         Product product = new Product();
                         product.name = documentSnapshot.getString("name");
                         product.price = documentSnapshot.getString("price");
                         product.image = documentSnapshot.getString("image");
-                        product.categoryId = "computers";
+                        product.categoryId = "phones";
                         product.productId = documentSnapshot.getId();
                         product.productUrl = documentSnapshot.getString("productUrl");
-                        computers.add(product);
+                        phones.add(product);
                     }
-                    dataList.addAll(computers);
+                    dataList.addAll(phones);
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(ComputersActivity.this, "All products are loaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhonesActivity.this, "All products are loaded", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(ComputersActivity.this, "Cant load data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhonesActivity.this, "Cant load data", Toast.LENGTH_SHORT).show();
                 });
 
     }
-    private void searchList3(String text) {
+    private void searchList1(String text) {
         List<Product> dataSearchList = new ArrayList<>();
         for (Product data : dataList) {
             if (data.name.toLowerCase().contains(text.toLowerCase())) {
@@ -94,7 +94,7 @@ public class ComputersActivity extends AppCompatActivity {
         if (!dataSearchList.isEmpty()) {
             adapter.setSearchList(dataSearchList);
         } else {
-            Toast.makeText(ComputersActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PhonesActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
         }
     }
 }

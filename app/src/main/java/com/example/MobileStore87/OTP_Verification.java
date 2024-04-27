@@ -1,6 +1,5 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;

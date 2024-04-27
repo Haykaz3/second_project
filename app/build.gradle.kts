@@ -4,15 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.example.MobileStore87"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.example.MobileStore87"
         minSdk = 19
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -57,4 +58,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.1.0-alpha02")
     implementation ("com.intuit.sdp:sdp-android:1.0.6")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.android.support:multidex:2.0.1")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
-import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.MobileStore87.databinding.FragmentHomeBinding;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -47,6 +46,7 @@ public class HomeFragment extends Fragment  {
         ImageButton tabletBtn = (ImageButton) binding.tabletBtnImage;
         ImageButton computerBtn = (ImageButton) binding.laptopBtnImage;
         ImageButton allBtn = (ImageButton) binding.allBtnImage;
+        ImageView exit = (ImageView) binding.logout;
 
         searchView.clearFocus();
 
@@ -65,6 +65,13 @@ public class HomeFragment extends Fragment  {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         recyclerView.setVisibility(View.VISIBLE);
 
+        exit.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            getActivity().getSupportFragmentManager().beginTransaction().remove(HomeFragment.this).commit();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -78,6 +85,7 @@ public class HomeFragment extends Fragment  {
                 return true;
             }
         });
+
 
         phoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +139,11 @@ public class HomeFragment extends Fragment  {
                         product.categoryId = "phones";
                         product.productId = documentSnapshot.getId();
                         product.productUrl = documentSnapshot.getString("productUrl");
+                        if (documentSnapshot.get("viewCount", Integer.class) != null) {
+                            product.viewCount = documentSnapshot.get("viewCount", Integer.class);
+                        } else {
+                            product.viewCount = 0;
+                        }
                         phones.add(product);
                     }
                     dataList.addAll(phones);
@@ -155,7 +168,11 @@ public class HomeFragment extends Fragment  {
                         product.categoryId = "tablets";
                         product.productId = documentSnapshot.getId();
                         product.productUrl = documentSnapshot.getString("productUrl");
-                        phones.add(product);
+                        if (documentSnapshot.get("viewCount", Integer.class) != null) {
+                            product.viewCount = documentSnapshot.get("viewCount", Integer.class);
+                        } else {
+                            product.viewCount = 0;
+                        }                        phones.add(product);
                     }
                     dataList.addAll(tablets);
                     adapter.notifyDataSetChanged();
@@ -179,7 +196,11 @@ public class HomeFragment extends Fragment  {
                         product.categoryId = "computers";
                         product.productId = documentSnapshot.getId();
                         product.productUrl = documentSnapshot.getString("productUrl");
-                        phones.add(product);
+                        if (documentSnapshot.get("viewCount", Integer.class) != null) {
+                            product.viewCount = documentSnapshot.get("viewCount", Integer.class);
+                        } else {
+                            product.viewCount = 0;
+                        }                        phones.add(product);
                     }
                     dataList.addAll(computers);
                     adapter.notifyDataSetChanged();
@@ -200,8 +221,6 @@ public class HomeFragment extends Fragment  {
         }
         if (!dataSearchList.isEmpty()) {
             adapter.setSearchList(dataSearchList);
-        } else {
-            Toast.makeText(getActivity(), "Not Found", Toast.LENGTH_SHORT).show();
         }
     }
 }

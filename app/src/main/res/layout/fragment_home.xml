@@ -12,24 +12,44 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_back_theme"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:background="@drawable/top_background" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="65dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/search"
-            android:backgroundTint="@color/white"
-            android:focusable="false"
-            app:closeIcon="@drawable/baseline_clear_24"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search on MobileStore"
-            app:searchHintIcon="@null"
-            app:searchIcon="@drawable/baseline_search_24" />
+            android:padding="20dp"
+            >
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:background="@drawable/search"
+                android:backgroundTint="@color/white"
+                android:focusable="false"
+                app:closeIcon="@drawable/baseline_clear_24"
+                app:iconifiedByDefault="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:queryHint="Search on MobileStore"
+                app:searchHintIcon="@null"
+                app:searchIcon="@drawable/baseline_search_24" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/exit_logo"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ViewFlipper
             android:id="@+id/carousel"

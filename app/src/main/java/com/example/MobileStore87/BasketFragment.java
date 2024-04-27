@@ -1,8 +1,5 @@
-package com.example.myapplication;
+package com.example.MobileStore87;
 
-import static android.os.Build.VERSION_CODES.R;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplication.databinding.FragmentBasketBinding;
+import com.example.MobileStore87.databinding.FragmentBasketBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;

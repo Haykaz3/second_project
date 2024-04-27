@@ -10,10 +10,9 @@
         android:id="@+id/basket"
         android:title="Compare"
         android:icon="@drawable/vector__1_"/>
-
     <item
-        android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/person_24"/>
+        android:id="@+id/statistics"
+        android:title="Statistics"
+        android:icon="@drawable/statistics"/>
 
 </menu>
