@@ -5,9 +5,13 @@
         android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/baseline_home_24"/>
+    <item
+        android:id="@+id/search4"
+        android:title="Search"
+        android:icon="@drawable/baseline_search_24"/>
 
     <item
-        android:id="@+id/basket"
+        android:id="@+id/compare"
         android:title="Compare"
         android:icon="@drawable/vector__1_"/>
     <item

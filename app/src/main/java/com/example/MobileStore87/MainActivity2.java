@@ -13,8 +13,9 @@ public class MainActivity2 extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment = new HomeFragment();
-    BasketFragment basketFragment = new BasketFragment();
+    CompareFragment compareFragment = new CompareFragment();
     StatisticsFragment statisticsFragment = new StatisticsFragment();
+    SearchFragment searchFragment = new SearchFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,12 @@ public class MainActivity2 extends AppCompatActivity {
                 if (itemId == R.id.home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                     return true;
-                } else if (itemId == R.id.basket) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, basketFragment).commit();
+                }else if (itemId == R.id.search4) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                    return true;
+                }
+                else if (itemId == R.id.compare) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, compareFragment).commit();
                     return true;
                 } else if (itemId == R.id.statistics) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, statisticsFragment).commit();

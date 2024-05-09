@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasketFragment extends Fragment {
+public class CompareFragment extends Fragment {
 
     RecyclerView recyclerView;
     public Cart cart;

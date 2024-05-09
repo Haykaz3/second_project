@@ -11,6 +11,14 @@
         android:layout_height="150dp"
         android:background="@drawable/top_background" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/leftArrowPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_chevron_left_24"
+        android:backgroundTint="@color/white"
+        android:layout_marginLeft="12dp"/>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchPhones"
         android:layout_width="match_parent"

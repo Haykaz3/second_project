@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -31,6 +32,10 @@ public class ComputersActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewComputers);
         SearchView searchView = findViewById(R.id.searchComputers);
+        FloatingActionButton leftArrow = findViewById(R.id.leftArrowComp);
+        leftArrow.setOnClickListener(v -> {
+            finish();
+        });
 
         searchView.clearFocus();
 
@@ -77,7 +82,6 @@ public class ComputersActivity extends AppCompatActivity {
                     }
                     dataList.addAll(computers);
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(ComputersActivity.this, "All products are loaded", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(ComputersActivity.this, "Cant load data", Toast.LENGTH_SHORT).show();
@@ -93,8 +97,6 @@ public class ComputersActivity extends AppCompatActivity {
         }
         if (!dataSearchList.isEmpty()) {
             adapter.setSearchList(dataSearchList);
-        } else {
-            Toast.makeText(ComputersActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
         }
     }
 }

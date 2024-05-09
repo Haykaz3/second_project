@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.example.MobileStore87.databinding.FragmentHomeBinding;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -25,7 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment {
 
     List<Product> dataList;
     List<Product> phones;
@@ -119,11 +120,10 @@ public class HomeFragment extends Fragment  {
 
     }
 
-    private void getProducts(){
+    private void getProducts() {
         getComputer();
         getTablets();
         getPhones();
-        Toast.makeText(getActivity(), "All products are loaded", Toast.LENGTH_SHORT).show();
     }
 
     private void getPhones() {
@@ -172,7 +172,8 @@ public class HomeFragment extends Fragment  {
                             product.viewCount = documentSnapshot.get("viewCount", Integer.class);
                         } else {
                             product.viewCount = 0;
-                        }                        phones.add(product);
+                        }
+                        tablets.add(product);
                     }
                     dataList.addAll(tablets);
                     adapter.notifyDataSetChanged();
@@ -183,7 +184,7 @@ public class HomeFragment extends Fragment  {
 
     }
 
-    private void getComputer(){
+    private void getComputer() {
         FirebaseFirestore.getInstance().collection("computers")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -200,7 +201,8 @@ public class HomeFragment extends Fragment  {
                             product.viewCount = documentSnapshot.get("viewCount", Integer.class);
                         } else {
                             product.viewCount = 0;
-                        }                        phones.add(product);
+                        }
+                        computers.add(product);
                     }
                     dataList.addAll(computers);
                     adapter.notifyDataSetChanged();
@@ -209,7 +211,6 @@ public class HomeFragment extends Fragment  {
                     Toast.makeText(getActivity(), "Cant load data", Toast.LENGTH_SHORT).show();
                 });
     }
-
 
 
     private void searchList(String text) {

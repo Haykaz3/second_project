@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.MobileStore87.databinding.FragmentHomeBinding;
-import com.example.MobileStore87.databinding.FragmentProfileBinding;
 import com.example.MobileStore87.databinding.FragmentStatisticsBinding;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
