@@ -39,7 +39,7 @@ public class Parsing_JSON extends AppCompatActivity {
     }
 
     private class FetchTask extends AsyncTask<Void, Void, Void> {
-        String url = "https://www.mobilecentre.am/category/computers/144/0/";
+        String url = "https://notebookcentre.am/category/phones/";
 
         @Override
         protected void onPreExecute() {
@@ -52,21 +52,21 @@ public class Parsing_JSON extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url).get();
 
-                Elements productElements = doc.select("body > div.container.listing > div > div.col-lg-9.col-md-9.col-sm-12.product-list.product-list-filter > div");
+                Elements productElements = doc.select("#product-list > ul.thumbs.product-list.row.show-tech-chars > li");
 
                 for (Element productElement : productElements) {
-                    String productImage = productElement.select("div.equalsize > a > img").attr("data-src");
-                    String productName = productElement.select("h3").text();
-                    String productPrice = productElement.select("div.item-body > div.price > span").text();
-
+                    String productImage = productElement.select("div > a > div > div > img").attr("src");
+                    String productName = productElement.select("li > div > a > h5 > span").text();
+                    String productPrice = productElement.select("#price-skey-0 > div:nth-child(1) > span").text();
                     //System.out.println(productName + " " + productPrice + " " + productImage);
+
                     if (!productName.isEmpty() && !productPrice.isEmpty() && !productImage.isEmpty()) {
                         HashMap<String, Object> product = new HashMap<>();
                         product.put("name", productName);
                         product.put("price", productPrice);
                         product.put("image", productImage);
 
-                        db.collection("computers")
+                        db.collection("NotebookCenterPhones")
                                 .add(product)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
