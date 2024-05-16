@@ -39,7 +39,7 @@ public class Parsing_JSON extends AppCompatActivity {
     }
 
     private class FetchTask extends AsyncTask<Void, Void, Void> {
-        String url = "https://notebookcentre.am/category/phones/";
+        String url = "https://www.grifus.am/phones?page=3";
 
         @Override
         protected void onPreExecute() {
@@ -52,7 +52,7 @@ public class Parsing_JSON extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url).get();
 
-                Elements productElements = doc.select("#product-list > ul.thumbs.product-list.row.show-tech-chars > li");
+                Elements productElements = doc.select("body > main > div > div > div.l-col.min-0--12.l-main__right > div > div > div > div:nth-child(6) > div > div");
 
                 for (Element productElement : productElements) {
                     String productImage = productElement.select("div > a > div > div > img").attr("src");

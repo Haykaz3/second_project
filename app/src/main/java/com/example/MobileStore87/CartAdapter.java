@@ -120,10 +120,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public boolean Compare(String phoneName, String phoneName2) {
             // Define colors to remove
-            String[] colorsToRemove = {"Canary Yellow", "Beige", "Black", "Blue", "Brown", "Coral",
-                    "Dark Silver", "darkgreen", "Gold", "Green", "Green Light",
-                    "Grey", "Light Blue", "Light Pink", "Orange",
-                    "Pink", "Prism Green", "Prism White", "Purple", "Red", "Rose Gold", "Silver", "Teal", "Tiffany", "Violet", "White", "Yellow", "Polar", "APPLE"};
+            String[] colorsToRemove = {"Yellow", "Beige", "Black", "Blue", "Brown", "Coral"
+                    ,"darkgreen", "Grey", "Pink", "Orange"
+                    ,"Green", "White", "Purple", "Red", "Gold", "Silver",
+                    "Teal", "Tiffany", "Violet", "Polar", "APPLE", "Canary",
+                    "Prism", "Light", "Dark", "Rose", "(LL/A)", "Titanium",
+                    "Marble", "Meadow", "Gray", "Space", ".A13", ".0", "Air", "AIR",
+                    "M1 chip", "with", "8-core CPU", "and", "7-core GPU", "SSD", "Apple",
+                    "WiFi", "2021", "Graphite", "X510", "Night", "Sea", "Charcoal",
+                    "Cobalt", "Mint", "Amber", "Starlight", "Stripe", "Mighty", "Lavender",
+                    "Onyx", "Star", "Copper", "Forest", "Lime", "Champion", "Glory",
+                    "Glacier", "Sky", "Carbon", "Ice", "Moonlight", "Astral", "Midnight",
+                    "Natural", "Cyan", "Sunshower", "Sunrise", "Rainy", "Rock", "Cream",
+                    "Ocean", "Sunny", "Oasis", "Navy", "Alpine", "Phantom"};
 
             // Build a regex pattern to match any of the colors
             StringBuilder regexBuilder = new StringBuilder();
@@ -135,8 +144,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             // Use regex to remove colors from the phone name
             phoneName = phoneName.replaceAll(regex, "");
+            phoneName = phoneName.replaceAll("\"", "");
+            phoneName = phoneName.replaceAll("[^a-zA-Z0-9 ]", "");
+            phoneName = phoneName.replaceAll("\\s{2,}", " ").trim();
             phoneName2 = phoneName2.replaceAll(regex, "");
-
+            phoneName2 = phoneName2.replaceAll("\"", "");
+            phoneName2 = phoneName2.replaceAll("[^a-zA-Z0-9 ]", "");
+            phoneName2 = phoneName2.replaceAll("\\s{2,}", " ").trim();
             // Remove extra spaces
             phoneName = phoneName.trim().replaceAll("\\s+", " ");
             phoneName2 = phoneName2.trim().replaceAll("\\s+", " ");
@@ -152,6 +166,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             // Remove any brackets and "GB" size from the phone name
             phoneName = phoneName.replaceAll(pattern1, "");
             phoneName2 = phoneName2.replaceAll(pattern1, "");
+
+            String pattern2 = "\\s*[\\\\/()\\[\\]]|\\s*\\(.*?\\)\\s*|\\s*\\d+TB\\s*";
+
+            phoneName = phoneName.replaceAll(pattern2, "");
+            phoneName2 = phoneName2.replaceAll(pattern2, "");
+            phoneName2 = phoneName2.replaceAll("A13", "");
+            phoneName2 = phoneName2.replaceAll("WiFi", "");
+
 
             System.out.println("Phone name after removing colors: " + phoneName2);
             if (phoneName.trim().toLowerCase().equals(phoneName2.trim().toLowerCase())) {
