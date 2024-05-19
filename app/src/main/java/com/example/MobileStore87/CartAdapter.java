@@ -1,16 +1,26 @@
 package com.example.MobileStore87;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.MobileStore87.databinding.ActivityCartAdapterBinding;
+import com.google.ai.client.generativeai.GenerativeModel;
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.ai.client.generativeai.type.Content;
+import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,6 +34,8 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
@@ -103,6 +115,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                                     binding.grifusUrl.setText("loading");
                                                     String nameFromQuery = queryDocumentSnapshot.getString("name");
                                                     String nameFromDocument = documentSnapshot.getString("name");
+                                                    //CompareWithGemini(nameFromQuery, nameFromDocument, itemView.getContext());
                                                     if (nameFromQuery != null && nameFromDocument != null && Compare(nameFromQuery, nameFromDocument)) {
                                                         binding.grifusUrl.setText(queryDocumentSnapshot.getString("url"));
                                                         binding.grifusPrice.setText(queryDocumentSnapshot.getString("price"));
@@ -117,30 +130,51 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         }
                     });
         }
-
         public boolean Compare(String phoneName, String phoneName2) {
             // Define colors to remove
-            String[] colorsToRemove = {"Yellow", "Beige", "Black", "Blue", "Brown", "Coral"
+            String[] ToRemove = {"Yellow", "Beige", "Black", "Blue", "Brown", "Coral"
                     ,"darkgreen", "Grey", "Pink", "Orange"
                     ,"Green", "White", "Purple", "Red", "Gold", "Silver",
                     "Teal", "Tiffany", "Violet", "Polar", "APPLE", "Canary",
                     "Prism", "Light", "Dark", "Rose", "(LL/A)", "Titanium",
-                    "Marble", "Meadow", "Gray", "Space", ".A13", ".0", "Air", "AIR",
-                    "M1 chip", "with", "8-core CPU", "and", "7-core GPU", "SSD", "Apple",
+                    "Marble", "Meadow", "Gray", "Space", ".A13", ".0", "AIR",
+                    "M1 chip", "with", "8-core", "and", "7-core","GPU", "SSD", "Apple",
                     "WiFi", "2021", "Graphite", "X510", "Night", "Sea", "Charcoal",
                     "Cobalt", "Mint", "Amber", "Starlight", "Stripe", "Mighty", "Lavender",
                     "Onyx", "Star", "Copper", "Forest", "Lime", "Champion", "Glory",
                     "Glacier", "Sky", "Carbon", "Ice", "Moonlight", "Astral", "Midnight",
                     "Natural", "Cyan", "Sunshower", "Sunrise", "Rainy", "Rock", "Cream",
-                    "Ocean", "Sunny", "Oasis", "Navy", "Alpine", "Phantom"};
+                    "Ocean", "Sunny", "Oasis", "Navy", "Alpine", "Phantom", "5G", "4G",
+                    "PC", "Notebook", "Moonstone", "Pure", "13 inch","M2 chip", " ",
+                    "K193", "CPU", "10-core", "15 inch", "2023", "2024", "chip", "16-core",
+                    "M1 Pro", "inch", "11‑core", "14‑core", "RAM", "12‑core", "18‑core",
+                    "8‑core", "7‑core", "T220", "Cosmic", "LTE", "Mist", "Real", "X205",
+                    "X910", "2022", "Cellular", "X710", "F5", "Dual SIM", "TA-1235",
+                    "TA-1582", "2660","Flip", "Exynos", "X110", "X210", "T225", "X200",
+                    "X115", "X210", "X510", "X616", "X700", "X710", "X610", "X716", "X800", "X810", "X910", "X916"};
+
+            // Remove "S24" from phoneName if it exists
+            //phoneName2 = phoneName2.replaceAll("\\bS24\\b", "");
 
             // Build a regex pattern to match any of the colors
             StringBuilder regexBuilder = new StringBuilder();
-            for (String color : colorsToRemove) {
+            for (String color : ToRemove) {
                 regexBuilder.append("\\b").append(Pattern.quote(color)).append("\\b|");
             }
             regexBuilder.deleteCharAt(regexBuilder.length() - 1); // Remove the last '|'
             String regex = regexBuilder.toString();
+
+            String pattern = "\\s*\\d+GB\\s*";
+
+            // Remove "256GB" from the phone name
+            phoneName = phoneName.replaceAll(pattern, "");
+            phoneName2 = phoneName2.replaceAll(pattern, "");
+
+            String pattern1 = "\\s*[\\\\/()\\[\\]]|\\s*\\(.*?\\)\\s*|\\s*\\d+GB\\s*";
+
+            // Remove any brackets and "GB" size from the phone name
+            phoneName = phoneName.replaceAll(pattern1, "");
+            phoneName2 = phoneName2.replaceAll(pattern1, "");
 
             // Use regex to remove colors from the phone name
             phoneName = phoneName.replaceAll(regex, "");
@@ -155,24 +189,49 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             phoneName = phoneName.trim().replaceAll("\\s+", " ");
             phoneName2 = phoneName2.trim().replaceAll("\\s+", " ");
 
-            String pattern = "\\s*\\d+GB\\s*";
 
-            // Remove "256GB" from the phone name
-            phoneName = phoneName.replaceAll(pattern, "");
-            phoneName2 = phoneName2.replaceAll(pattern, "");
-
-            String pattern1 = "\\s*[\\\\/()\\[\\]]|\\s*\\(.*?\\)\\s*|\\s*\\d+GB\\s*";
-
-            // Remove any brackets and "GB" size from the phone name
-            phoneName = phoneName.replaceAll(pattern1, "");
-            phoneName2 = phoneName2.replaceAll(pattern1, "");
 
             String pattern2 = "\\s*[\\\\/()\\[\\]]|\\s*\\(.*?\\)\\s*|\\s*\\d+TB\\s*";
 
             phoneName = phoneName.replaceAll(pattern2, "");
+            phoneName = phoneName.replaceAll("G31U3", "");
+            phoneName = phoneName.replaceAll("NXK6SER004", "");
+            phoneName = phoneName.replaceAll("K193", "");
+            phoneName = phoneName.replaceAll(" ", "");
+            phoneName = phoneName.replaceAll("M3Pro", "");
+            phoneName = phoneName.replaceAll("M3PRO", "");
+            phoneName = phoneName.replaceAll("Air", "");
+            phoneName = phoneName.replaceAll("M3", "");
             phoneName2 = phoneName2.replaceAll(pattern2, "");
             phoneName2 = phoneName2.replaceAll("A13", "");
             phoneName2 = phoneName2.replaceAll("WiFi", "");
+            phoneName2 = phoneName2.replaceAll("79CL", "");
+            phoneName2 = phoneName2.replaceAll("55KQ", "");
+            phoneName2 = phoneName2.replaceAll("K183", "");
+            phoneName2 = phoneName2.replaceAll("inchM3Pro", "");
+            phoneName2 = phoneName2.replaceAll("M3Pro", "");
+            phoneName2 = phoneName2.replaceAll("M3PRO", "");
+            phoneName2 = phoneName2.replaceAll("M3", "");
+            phoneName2 = phoneName2.replaceAll("10core", "");
+            phoneName2 = phoneName2.replaceAll("NXK6SER004", "");
+            phoneName2 = phoneName2.replaceAll("Air", "");
+            phoneName2 = phoneName2.replaceAll(" ", "");
+            phoneName2 = phoneName2.replaceAll("Marble", "");
+            phoneName2 = phoneName2.replaceAll("Light", "");
+            phoneName2 = phoneName2.replaceAll("Silver", "");
+            String replacement = "";
+            String Redmi = "Redmi";
+            for (String item : ToRemove) {
+                if (item.equals("Red") && (phoneName.toLowerCase().contains("redmi") || phoneName2.toLowerCase().contains("redmi"))) {
+                    continue;
+                }
+                replacement += Pattern.quote(item) + "|";
+            }
+            replacement = replacement.substring(0, replacement.length() - 1); // Remove the last '|'
+
+// Use regex to replace all items in the ToRemove array
+            phoneName = phoneName.replaceAll(replacement, "");
+            phoneName2 = phoneName2.replaceAll(replacement, "");
 
 
             System.out.println("Phone name after removing colors: " + phoneName2);
@@ -246,8 +305,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         void deleteItem(String cartId, String id) {
-            FirebaseFirestore.getInstance().collection("carts").document(cartId).collection("cartItems").document(id).delete();
-            notifyDataSetChanged();
+            FirebaseFirestore.getInstance().collection("carts").document(cartId).collection("cartItems").document(id).delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // Remove the item from the list
+                            int position = getAdapterPosition();
+                            cartitems.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, cartitems.size());
+                        }
+                    });
         }
     }
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
 
 public class CompareFragment extends Fragment {
@@ -40,6 +41,7 @@ public class CompareFragment extends Fragment {
     private List<CartItem> cartItemList;
     TextView name;
     FragmentBasketBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBasketBinding.inflate(inflater, container, false);

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.MobileStore87"
-        minSdk = 19
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -60,6 +60,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.android.support:multidex:2.0.1")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
-
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.0")
+    implementation("com.google.guava:guava:31.0.1-android")
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
 }

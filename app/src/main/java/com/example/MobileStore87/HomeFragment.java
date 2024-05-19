@@ -1,6 +1,7 @@
 package com.example.MobileStore87;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -17,8 +18,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.MobileStore87.databinding.FragmentHomeBinding;
+import com.google.ai.client.generativeai.GenerativeModel;
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.ai.client.generativeai.type.Content;
+import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -116,6 +124,9 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+//        binding.adsad.setOnClickListener(v -> {
+//            CompareWithGemini("SAMSUNG GALAXY S24 ULTRA", "Samsung Galaxy S24 Ultra 512GB (Titanium Violet)");
+//        });
         return binding.getRoot();
 
     }
@@ -224,4 +235,31 @@ public class HomeFragment extends Fragment {
             adapter.setSearchList(dataSearchList);
         }
     }
+//    public void CompareWithGemini(String phoneName, String phoneName2) {
+//        // For text-only input, use the gemini-pro model
+//        GenerativeModel gm = new GenerativeModel(/* modelName */ "gemini-pro",
+//                // Access your API key as a Build Configuration variable (see "Set up your API key" above)
+//                "AIzaSyBa6txPera-uqkIfMChqzjp7kLGjQbNDDc");
+//        GenerativeModelFutures model = GenerativeModelFutures.from(gm);
+//
+//        Content content = new Content.Builder()
+//                .addText(phoneName + ", " + phoneName2 + ", " + "if they describe the same device write true otherwise write false (ignore storage and colors) write only true or false")
+//                .build();
+//        ListenableFuture<GenerateContentResponse> response = model.generateContent(content);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
+//                @Override
+//                public void onSuccess(GenerateContentResponse result) {
+//                    String resultText = result.getText();
+//                    // Assuming binding.bool is a TextView
+//                    binding.asdasdtext.setText(resultText);
+//                }
+//
+//                @Override
+//                public void onFailure(Throwable t) {
+//                    t.printStackTrace();
+//                }
+//            }, getActivity().getMainExecutor());
+//        }
+//    }
 }
