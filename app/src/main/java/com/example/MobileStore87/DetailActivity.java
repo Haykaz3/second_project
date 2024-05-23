@@ -37,8 +37,10 @@ public class DetailActivity extends AppCompatActivity {
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
     private com.example.MobileStore87.databinding.ActivityDetailBinding binding;
     private String productUrl;
+    private String productUrl1;
     private String productPrice;
     private String productName;
+    private String productName1;
     private String productId;
     private String categoryId;
     private String image;
@@ -50,8 +52,10 @@ public class DetailActivity extends AppCompatActivity {
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         productUrl = getIntent().getStringExtra("productUrl");
+        productUrl1 = getIntent().getStringExtra("url");
         productPrice = getIntent().getStringExtra("productPrice");
         productName = getIntent().getStringExtra("productName");
+        productName1 = getIntent().getStringExtra("productName");
         productId = getIntent().getStringExtra("productId");
         categoryId = getIntent().getStringExtra("categoryId");
         image = getIntent().getStringExtra("image");
@@ -75,7 +79,6 @@ public class DetailActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
-            //cartId = FirebaseFirestore.getInstance().collection("carts").whereEqualTo("deviceId", user.getUid()).toString();
             FirebaseFirestore.getInstance().collection("carts").whereEqualTo("deviceId", user.getUid())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -108,10 +111,6 @@ public class DetailActivity extends AppCompatActivity {
                                                     }
                                                 });
                                     }
-                                   /* if (user.getUid().equals(cartId)) {
-                                        HashMap<String, Object> newcart = new HashMap<>();
-                                        FirebaseFirestore.getInstance().collection("cartItems").
-                                    }*/
                                 }else {
                                     cart.put("deviceId", user.getUid());
                                     cartItem.put("itemCount", count);

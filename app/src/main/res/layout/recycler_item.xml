@@ -7,21 +7,21 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recCard"
-        android:layout_width="285dp"
+        android:layout_width="@dimen/_136sdp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:cardElevation="@dimen/_8sdp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/_10sdp">
             <ImageView
                 android:id="@+id/recImage"
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
+                android:layout_height="@dimen/_70sdp"
                 android:layout_weight="4"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/smartphone" />
@@ -43,9 +43,9 @@
                         android:id="@+id/recTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxWidth="150dp"
+                        android:maxWidth="@dimen/_60sdp"
                         android:text="IPhone 15"
-                        android:textSize="12dp"
+                        android:textSize="@dimen/_6sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -53,15 +53,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="450000$"
-                        android:textSize="12dp" />
+                        android:textSize="@dimen/_6sdp" />
                 </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/appCompatButton"
-                    android:layout_width="48dp"
-                    android:layout_height="42dp"
+                    android:layout_width="@dimen/_21sdp"
+                    android:layout_height="@dimen/_19sdp"
                     android:background="@drawable/cart_back_ground"
-                    android:src="@drawable/vector__1_"
+                    android:src="@drawable/compare111"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

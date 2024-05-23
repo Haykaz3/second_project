@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
         SearchView searchView = (SearchView) binding.search;
         ImageButton phoneBtn = (ImageButton) binding.phoneBtnImage;
         ImageButton tabletBtn = (ImageButton) binding.tabletBtnImage;
-        ImageButton computerBtn = (ImageButton) binding.laptopBtnImage;
         ImageButton allBtn = (ImageButton) binding.allBtnImage;
         ImageView exit = (ImageView) binding.logout;
 
@@ -107,13 +106,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TabletsActivity.class);
-                startActivity(intent);
-            }
-        });
-        computerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ComputersActivity.class);
                 startActivity(intent);
             }
         });

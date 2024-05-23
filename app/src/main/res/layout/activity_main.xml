@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#010519"
-    android:padding="50dp"
     tools:context=".MainActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/gifImageView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="@dimen/_400sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         app:lottie_rawRes="@raw/gif_start"/>
 
     <TextView
@@ -27,7 +26,7 @@
         android:layout_centerVertical="true"
         android:text="Welcome to MobileStore!"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="@dimen/_30sdp"
         android:textStyle="bold" />
 
     <TextView
@@ -37,21 +36,23 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"
-        android:text="Your One-Stop Shop for Smartphones and Laptops - Unbeatable Variety, Quality, and Service!"
+        android:text="Your One-Stop Shop for Smartphones and Tablets - Unbeatable Variety, Quality, and Service!"
         android:textColor="@color/white"
-        android:textSize="12dp" />
+        android:textSize="@dimen/_12sdp" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="40dp"
-        android:text="Get Starter  >"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:text="Get Started  >"
+        android:textSize="@dimen/_12sdp"
+        android:backgroundTint="#0D74C0"
         app:cornerRadius="10dp" />
 
 

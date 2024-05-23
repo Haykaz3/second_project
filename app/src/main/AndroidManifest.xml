@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/Theme.MobileStore87"
         tools:targetApi="31">
         <activity
             android:name=".CartAdapter"
@@ -22,10 +22,6 @@
             android:exported="false" />
         <activity
             android:name=".AllActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".ComputersActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
@@ -46,13 +42,11 @@
         <activity
             android:name=".Register"
             android:screenOrientation="portrait"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".Login"
             android:screenOrientation="portrait"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity2"
             android:screenOrientation="portrait"

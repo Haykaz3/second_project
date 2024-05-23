@@ -21,6 +21,7 @@
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
         app:itemActiveIndicatorStyle="@drawable/active_item_style"
+        app:itemIconSize="@dimen/_20sdp"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_menu"/>
 
