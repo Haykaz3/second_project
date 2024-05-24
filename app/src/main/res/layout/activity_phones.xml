@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_back_theme"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/_63sdp"
         android:background="@drawable/top_background" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -17,15 +17,15 @@
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_chevron_left_24"
         android:backgroundTint="@color/white"
-        android:layout_marginLeft="12dp"/>
+        android:layout_marginLeft="@dimen/_12sdp"/>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchPhones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:background="@drawable/search"
         android:backgroundTint="@color/white"
         android:focusable="false"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_back_theme"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

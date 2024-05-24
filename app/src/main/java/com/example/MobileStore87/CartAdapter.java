@@ -1,7 +1,12 @@
 package com.example.MobileStore87;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -76,6 +81,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     class CartViewHolder extends RecyclerView.ViewHolder {
 
         ActivityCartAdapterBinding binding;
+        String grifusUrlProduct;
+        String mobilecentreUrlProduct;
 
         CartViewHolder(ActivityCartAdapterBinding ActivityCartAdapterBinding) {
             super(ActivityCartAdapterBinding.getRoot());
@@ -83,7 +90,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         void setCartData(CartItem cartData) {
-            //binding.detailDescriptionCompare.setText(cartData.productURL);
             new CartViewHolder.FetchTask11(cartData.productURL).execute();
             FirebaseFirestore.getInstance().collection(cartData.categoryId).document(cartData.itemId)
                     .get()
@@ -99,11 +105,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                             binding.textView1.setText(documentSnapshot.getString("name"));
                             String numericString = cartData.price.replaceAll("[^0-9]", "");
 
+                            binding.grifusUrl.setOnClickListener(v -> {
+                                Uri uri = Uri.parse(grifusUrlProduct);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                context.startActivity(intent);
+                            });
+
                             int price = Integer.parseInt(numericString);
-                            binding.textView2.setText(Integer.toString(price));
+                            binding.textView2.setText(Integer.toString(price) + " ֏");
 
                             binding.imageViewdelete.setOnClickListener(v -> {
                                 deleteItem(cartData.cartId, cartData.cartItemId);
+                            });
+                            binding.mobilecentreUrl.setText(documentSnapshot.getString("productUrl"));
+                            binding.mobilecentreUrl.setTextSize(20f);
+                            binding.mobilecentreUrl.setTypeface(null, Typeface.BOLD);
+                            mobilecentreUrlProduct = documentSnapshot.getString("productUrl");
+                            binding.mobilecentreUrl.setOnClickListener(v -> {
+                                Uri uri = Uri.parse(mobilecentreUrlProduct);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                context.startActivity(intent);
                             });
 
                             FirebaseFirestore.getInstance().collection("grifus" + toCapitalCase(cartData.categoryId)).get()
@@ -115,10 +136,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                                     binding.grifusUrl.setText("loading");
                                                     String nameFromQuery = queryDocumentSnapshot.getString("name");
                                                     String nameFromDocument = documentSnapshot.getString("name");
-                                                    //CompareWithGemini(nameFromQuery, nameFromDocument, itemView.getContext());
                                                     if (nameFromQuery != null && nameFromDocument != null && Compare(nameFromQuery, nameFromDocument)) {
                                                         binding.grifusUrl.setText(queryDocumentSnapshot.getString("url"));
+                                                        binding.grifusUrl.setTextSize(20f);
+                                                        binding.grifusUrl.setTypeface(null, Typeface.BOLD);
+                                                        grifusUrlProduct = queryDocumentSnapshot.getString("url");
                                                         binding.grifusPrice.setText(queryDocumentSnapshot.getString("price"));
+                                                        binding.grifusPrice.setTextSize(35f);
+                                                        binding.grifusPrice.setTypeface(null, Typeface.BOLD);
                                                         return; // Assuming you only need to set the text once
                                                     }
                                                 }
@@ -153,8 +178,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     "TA-1582", "2660","Flip", "Exynos", "X110", "X210", "T225", "X200",
                     "X115", "X210", "X510", "X616", "X700", "X710", "X610", "X716", "X800", "X810", "X910", "X916"};
 
-            // Remove "S24" from phoneName if it exists
-            //phoneName2 = phoneName2.replaceAll("\\bS24\\b", "");
 
             // Build a regex pattern to match any of the colors
             StringBuilder regexBuilder = new StringBuilder();

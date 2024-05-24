@@ -9,49 +9,52 @@
     android:orientation="vertical"
     android:padding="@dimen/_8sdp">
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_15sdp"
-        android:textSize="@dimen/_12sdp"
         android:maxWidth="@dimen/_100sdp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView1"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="normal" />
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:textColor="@color/blue"
         android:textSize="@dimen/_15sdp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView1"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/grifusPrice"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:text="֏"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/_10sdp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="@dimen/_5sdp"
+        android:maxWidth="@dimen/_100sdp"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:text="price"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_5sdp"
+        android:textStyle="normal" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -82,6 +85,7 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/grifusUrl"
         android:layout_width="match_parent"
@@ -93,14 +97,15 @@
         android:textAlignment="textStart"
         android:textSize="@dimen/_5sdp"
         android:textStyle="normal" />
+
     <TextView
-        android:id="@+id/grifusPrice"
+        android:id="@+id/mobilecentreUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxWidth="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:paddingHorizontal="@dimen/_20sdp"
-        android:text="price"
+        android:text="mobilecentreurl"
         android:textAlignment="textStart"
         android:textSize="@dimen/_5sdp"
         android:textStyle="normal" />
@@ -117,4 +122,5 @@
         app:layout_constraintStart_toEndOf="@+id/imageView1"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.619" />
+
 </LinearLayout>
